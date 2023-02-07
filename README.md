@@ -1,7 +1,10 @@
 # Group7
 
-Team Members: 
-Leeya Thercy, Rheannon Thames, Pranavi Beerelli, & Chalmers Campbell
+## Team Members: 
+Leeya Thercy, 
+Rheannon Thames, 
+Pranavi Beerelli, 
+Chalmers Campbell,
 
 ## Description
 We are building a shoe store that will allow users to buy and sell shoes. 
