@@ -2,7 +2,7 @@
 
 ## Team Members: 
 Leeya Thercy, Group Leader, NetID: Let280, GitHub:leeyat1, Python & HTML, Senior
-Rheannon Thames, Group Member, NetID:yrt9, GitHub: Ree347, 
+Rheannon Thames, Group Member, NetID:yrt9, GitHub: Ree347, Senior
 Pranavi Beerelli, Group Member, NetID: pb1108, GitHub: PranaviBeerelli, 
 Chalmers Campbell, Group Member, NetID:c cc658, GitHub: Chalmers4, Senior
 
