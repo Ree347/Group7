@@ -2,12 +2,12 @@
 
 ## Team Members: 
 Leeya Thercy, Group Leader, NetID: Let280, GitHub:leeyat1, Python & HTML, Senior
-Rheannon Thames, 
-Pranavi Beerelli, 
-Chalmers Campbell,
+Rheannon Thames, Group Member, NetID:yrt9, GitHub: Ree347, Senior
+Pranavi Beerelli, Group Member, NetID: pb1108, GitHub: PranaviBeerelli, Junior
+Chalmers Campbell, Group Member, NetID:c cc658, GitHub: Chalmers4, Senior.
 
 ## Description
-We are building a shoe store that will allow users to buy and sell shoes. 
+We are creating an e-commerece store that will allow users to buy and sell shoes. It will allow administrators to moderate activity
 
 ## Objective
 Our objective to come up with user stories, identify and implement the requirements.
