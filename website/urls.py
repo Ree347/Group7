@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="home"),
-     path('join', views.join, name="join")
+    path('join', views.join, name="join"),
+    path('memData', views.memData, name="memberData")
     
 ]
