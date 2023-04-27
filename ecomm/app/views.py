@@ -224,3 +224,53 @@ def remove_cart(request):
             'totalamount' : totalamount
         }
         return JsonResponse(data)
+ 
+class CompareProductView(View):
+    
+    def compare(request, product1_id, product2_id):
+        product1 = Product.objects.get(id=product1_id)
+        product2 = Product.objects.get(id=product2_id)
+
+        context = {
+
+            'product1' : product1,
+            'product2' : product2,
+        }
+        return render(request, 'app/compare.hmtl', context)
+
+class RequestRefundView(View):
+        
+    def get(self , request):
+        form = RefundForm()
+        context = {
+            'form': form
+        }
+        return render(request, "app/refunds.html" , locals())
+
+      
+
+    def post(self, request):
+        form = RefundForm(request.POST)
+        if form.is_valid():
+            ref_code = form.cleaned_data.get('ref_code')
+            message = form.cleaned_data.get('message')
+            email = form.cleaned_data.get('email')
+            # edit the order
+            try:
+                order = OrderPlaced.objects.get(ref_code=ref_code)
+                OrderPlaced.refund_requested = True
+                order.save()
+
+                # store the refund
+                refund = Refund()
+                refund.order = order
+                refund.reason = message
+                refund.email = email
+                refund.save()
+
+                messages.info(request, "Your request was received.")
+                return redirect("core:request-refund")
+
+            except ObjectDoesNotExist:
+                messages.info(request, "This order does not exist.")
+                return redirect("core:request-refund")
