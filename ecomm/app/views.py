@@ -4,8 +4,10 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views import View
 import razorpay
-from . models import Product, Customer, Cart, Payment, OrderPlaced, Refund
-from . forms import CustomerRegistrationForm, CustomerProfileForm, RefundForm
+from django.core.exceptions import ObjectDoesNotExist
+from . models import Product, Customer, Cart, Payment, OrderPlaced, Refund, Seller
+from . forms import CustomerRegistrationForm, CustomerProfileForm, RefundForm, SellerRegistrationForm, SellerProfileForm
+from django.contrib import messages
 from django.contrib import messages
 from django.db.models import Q
 
@@ -39,6 +41,11 @@ class ProductDetail(View):
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
         return render(request, "app/productdetail.html", locals())
+    
+class CompareProduct(View):
+    def get(self, request, pk):
+        product = Product.obejects.get(pk=pk)
+        return render(request, "app/compare.html",locals())
 
 class CustomerRegistrationView(View):
     def get(self, request):
@@ -97,7 +104,23 @@ class updateAddress(View):
         else:
             messages.warning(request, 'Invalid Input Data')
         return redirect("address")
+
+class SellerRegistrationView(View):
+    def get(self, request):
+        form=SellerRegistrationForm()
+        return render(request, 'app/sellerregistration.html', locals())
+    def post(self, request):
+        form=SellerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Congratulations! User Register Successfully")
+        else:
+            messages.warning(request, "Invalid Input Data")
+        return render(request, 'app/sellerregistration.html', locals())
     
+
+
+
 def add_to_cart(request):
     user=request.user
     product_id=request.GET.get('prod_id')
@@ -163,9 +186,6 @@ def payment_done(request):
         c.delete()
     return redirect("orders")
 
-def orders(request):
-    order_placed=OrderPlaced.objects.filter(user=request.user)
-    return render(request, 'app/orders.html', locals())
 
 def plus_cart(request):
     if request.method == 'GET':
@@ -224,7 +244,24 @@ def remove_cart(request):
             'totalamount' : totalamount
         }
         return JsonResponse(data)
- 
+
+def seller_add_item(request):
+    if request.method == 'POST':
+        form = Product 
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.seller = request.user
+            product.save()
+            return redirect('seller_add_item')
+    else:
+        form = Product()
+    return render(request, 'seller_add_item.html', {'form': form})
+        
+
+
+
+
+
 class CompareProductView(View):
     
     def compare(request, product1_id, product2_id):
